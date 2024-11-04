@@ -47,7 +47,11 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
 
         @Override
         public T next() {
-            return UseIterableWithPolicy.this.array[this.index++];
+            if(hasNext() && UseIterableWithPolicy.this.iteratorPolicy.test(UseIterableWithPolicy.this.array[this.index])){    
+                return UseIterableWithPolicy.this.array[this.index];
+            }else{
+                return null;
+            }
         }
         
     }

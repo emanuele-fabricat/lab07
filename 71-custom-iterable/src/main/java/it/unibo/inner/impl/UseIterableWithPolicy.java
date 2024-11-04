@@ -38,17 +38,19 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
 
         @Override
         public boolean hasNext() {
-            if (this.index < UseIterableWithPolicy.this.array.length){
-                return true;
-            }else{
-                return false;
+            while (this.index < UseIterableWithPolicy.this.array.length){
+                if(UseIterableWithPolicy.this.iteratorPolicy.test(UseIterableWithPolicy.this.array[this.index])){
+                    return true;
+                }
+                this.index = this.index + 1;
             }
+            return false;
         }
 
         @Override
         public T next() {
-            if(hasNext() && UseIterableWithPolicy.this.iteratorPolicy.test(UseIterableWithPolicy.this.array[this.index])){    
-                return UseIterableWithPolicy.this.array[this.index];
+            if(hasNext()){
+                return UseIterableWithPolicy.this.array[this.index++];
             }else{
                 return null;
             }

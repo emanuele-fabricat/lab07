@@ -30,7 +30,7 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
 
     @Override
     public void setIterationPolicy(Predicate filter) {
-        
+        this.iteratorPolicy = filter;
     }
 
     public class MyIterator implements Iterator<T>{

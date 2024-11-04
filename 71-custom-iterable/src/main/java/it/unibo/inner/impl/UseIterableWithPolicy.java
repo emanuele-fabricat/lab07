@@ -7,9 +7,20 @@ import it.unibo.inner.api.Predicate;
 
 public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
     private T[] array;
+    private Predicate<T> iteratorPolicy;
 
     public UseIterableWithPolicy(T[] array){
+        this(array, new Predicate<T> ()
+            {
+                public boolean test (T elem){
+                    return true;
+                }
+            }
+        );
+    }
+    public UseIterableWithPolicy(T[] array, Predicate<T> method){
         this.array = array;
+        this.iteratorPolicy = method;
     }
 
     @Override
@@ -19,8 +30,7 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
 
     @Override
     public void setIterationPolicy(Predicate filter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setIterationPolicy'");
+        
     }
 
     public class MyIterator implements Iterator<T>{
@@ -39,7 +49,6 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
         public T next() {
             return UseIterableWithPolicy.this.array[this.index++];
         }
-    
         
     }
 

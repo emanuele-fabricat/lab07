@@ -24,16 +24,20 @@ public class UseIterableWithPolicy<T> implements IterableWithPolicy<T>{
     }
 
     public class MyIterator implements Iterator<T>{
+        private int index = 0;
+
         @Override
         public boolean hasNext() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+            if (this.index < UseIterableWithPolicy.this.array.length){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         @Override
         public T next() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'next'");
+            return UseIterableWithPolicy.this.array[this.index++];
         }
     
         

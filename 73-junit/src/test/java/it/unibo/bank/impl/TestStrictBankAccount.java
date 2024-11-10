@@ -17,6 +17,11 @@ class TestStrictBankAccount {
     private AccountHolder mRossi;
     private BankAccount bankAccount;
 
+    private static final int INITIAL_BUDGET = 100;
+    public static final double TRANSACTION_FEE = 0.1;
+    public static final double MANAGEMENT_FEE = 5;
+
+
     /**
      * Prepare the tests.
      */
@@ -41,7 +46,12 @@ class TestStrictBankAccount {
      */
     @Test
     public void testManagementFees() {
-        
+        bankAccount.deposit(mRossi.getUserID(), INITIAL_BUDGET);
+        assertEquals(1, bankAccount.getTransactionsCount());
+        assertEquals(INITIAL_BUDGET, bankAccount.getBalance());
+        bankAccount.chargeManagementFees(mRossi.getUserID());
+        assertEquals(0, bankAccount.getTransactionsCount());
+        assertEquals(INITIAL_BUDGET - TRANSACTION_FEE - MANAGEMENT_FEE, bankAccount.getBalance());
     }
 
     /**
@@ -49,7 +59,7 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-        fail("To be implemented");
+
     }
 
     /**

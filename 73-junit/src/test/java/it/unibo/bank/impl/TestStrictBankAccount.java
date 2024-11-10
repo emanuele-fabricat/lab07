@@ -20,6 +20,7 @@ class TestStrictBankAccount {
     private static final int INITIAL_BUDGET = 100;
     public static final double TRANSACTION_FEE = 0.1;
     public static final double MANAGEMENT_FEE = 5;
+    public static final int WRONG_ID = 154;
 
 
     /**
@@ -59,7 +60,7 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-
+        
     }
 
     /**
@@ -67,6 +68,11 @@ class TestStrictBankAccount {
      */
     @Test
     public void testWithdrawingTooMuch() {
-        fail("To be implemented");
+        assertEquals(0, bankAccount.getBalance());
+        try {
+            bankAccount.withdraw(mRossi.getUserID(), INITIAL_BUDGET);
+        } catch (IllegalArgumentException e) {
+            assert(bankAccount.getBalance() - INITIAL_BUDGET < 0);
+        }
     }
 }
